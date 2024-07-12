@@ -1,0 +1,17 @@
+.about .statement p{
+    padding: 10px 8px;
+    margin: 1px auto;
+    max-width: 1200px;
+    text-align: justify;
+    font-style: normal;
+    font-size:large;
+    color:#555;
+}
+
+hr{
+    /* display: inline; */
+    border: dotted #90ADCD 6px;
+    border-bottom: none;
+    width: 4%;
+    margin: 60px auto 30px auto;
+}

@@ -1,0 +1,29 @@
+.footer{
+    background-color: #446282;
+    padding: 20px;
+
+
+}
+
+.footer p{
+    text-align: center;
+    padding: 5px;
+    font-size: 25px;
+    padding-bottom: 10px;
+}
+
+.footer ul{
+    display: flex;
+    gap: 18px;
+    align-items: center;
+    justify-content: center;
+}
+.footer ul li{
+    list-style-type: none;
+
+}
+
+.footer ul li img {
+    height: 20px;
+    width: 20px;
+}
