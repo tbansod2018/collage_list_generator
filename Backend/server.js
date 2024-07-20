@@ -1,15 +1,16 @@
 require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
+const path = require("path");
 const scoreRoutes = require("./routes/Score");
 const usersRoutes = require("./routes/user");
 const bodyParser = require('body-parser');
 
-//express app
+// Express app
 const app = express();
 
-//middleware
-app.use(express.json())
+// Middleware
+app.use(express.json());
 app.use((req, res, next) => {
   console.log(req.path, req.method);
   next();
@@ -17,18 +18,24 @@ app.use((req, res, next) => {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-//routes
+// Routes
 app.use("/api/result", scoreRoutes);
 app.use("/api/user", usersRoutes);
 
-//connect to db
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, "../Frontend/build")));
 
+// The "catchall" handler: for any request that doesn't match an API route, send back React's index.html file.
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, "../Frontend/build", "index.html"));
+});
+
+// Connect to the database and start the server
 mongoose
-  .connect(process.env.MONGO_URI)
+  .connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
-    // listen for request
-    app.listen(process.env.PORT, () => {
-      console.log("Connectedd to db and Listening on port 4000");
+    app.listen(process.env.PORT || 4000, () => {
+      console.log("Connected to DB and listening on port", process.env.PORT || 4000);
     });
   })
   .catch((error) => {
